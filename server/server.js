@@ -31,6 +31,19 @@ app.use("/api/employees/:id", async (req, res, next) => {
   next();
 });
 
+app.get("/api/robert", async (req, res) => {
+  const allRoberts = await EmployeeModel.find( {name: /Robert/i} )
+
+  // const name = "John";
+  // const allRoberts = await EmployeeModel.find( {name: new RegExp  (name, "i")} );
+  res.send(allRoberts);
+
+  // const { resName } = req.query;
+  // const name = await EmployeeModel.find({$text: {$name: resName }})
+    // res.render("name", { name })
+
+})
+
 app.get("/api/employees/", async (req, res) => {
   const employees = await EmployeeModel.find().sort({ created: "desc" });
   return res.json(employees);
