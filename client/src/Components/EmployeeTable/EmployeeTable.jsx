@@ -9,7 +9,9 @@ const EmployeeTable = ({ employees, onDelete }) => (
           <th>Name</th>
           <th>Level</th>
           <th>Position</th>
-          <th />
+          <th>         
+            <input placeholder="Position & Level"></input>
+          </th>
         </tr>
       </thead>
       <tbody>
