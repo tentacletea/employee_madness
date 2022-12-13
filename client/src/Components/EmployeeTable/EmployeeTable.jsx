@@ -19,9 +19,7 @@ const EmployeeTable = ({ employees, onDelete, onInput, onSelect }) => (
             Sort by: <select
             onChange={(e) => onSelect(e)}
             >
-              <option>First name</option>
-              <option>Last name</option>
-              <option>Middle name</option>
+              <option>Name</option>
               <option>Position</option>
               <option>Level</option>
             </select>

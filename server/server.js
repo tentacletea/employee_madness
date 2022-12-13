@@ -32,7 +32,7 @@ app.use("/api/employees/:id", async (req, res, next) => {
 });
 
 app.get("/api/robert", async (req, res) => {
-  const allRoberts = await EmployeeModel.find( {name: /Robert/i} )
+  const allRoberts = await EmployeeModel.find({ name: /Robert/i })
 
   // const name = "John";
   // const allRoberts = await EmployeeModel.find( {name: new RegExp  (name, "i")} );
@@ -45,17 +45,71 @@ app.get("/api/robert", async (req, res) => {
 })
 
 app.get("/api/employees/", async (req, res) => {
-  const employees = await EmployeeModel.find().sort({ created: "desc" });
+  let findQuery;
+  let sortQuery;
+  const name = req.query.sort === "Name"
+  const position = req.query.sort === "Position"
+  const level = req.query.sort === "Level"
+
+
+  if (req.query.search) {
+    findQuery = {
+      $or: [
+        { level: { $regex: req.query.search, $options: "i" } },
+        { position: { $regex: req.query.search, $options: "i" } },
+      ]
+    }
+  } else {
+    findQuery = {}
+  }
+  
+  if (!req.query.sort) {
+    sortQuery = {
+      created: "desc"
+    }
+  }
+  else if (name) {
+    sortQuery = {
+      name: 1
+    }
+  }
+  else if (position) {
+    sortQuery = {
+      level: 1
+    }
+  }
+  else if (level) {
+    sortQuery = {
+      position: 1
+    }
+  }
+
+  const employees = await EmployeeModel.find(findQuery).sort(sortQuery);
+
+  // const compare = (a, b) =>{
+  //   a.name < b.name ? -1 : 1
+  //   a.name > b.name ? 1 : 1
+  // }
+
+
   return res.json(employees);
 });
 
 app.get("/api/filter/", async (req, res) => {
-  const levelFilter = await EmployeeModel.find( { level: {$regex : req.query.search , $options: "i"} } )
-  const positionFilter = await EmployeeModel.find( { position: {$regex : req.query.search , $options: "i"} } )
+  // const levelFilter = await EmployeeModel.find( { level: {$regex : req.query.search , $options: "i"} } )
+  // const positionFilter = await EmployeeModel.find( { position: {$regex : req.query.search , $options: "i"} } )
 
-  levelFilter.length > positionFilter.length 
-  ? res.json(levelFilter)
-  : res.json(positionFilter) 
+  const filter = await EmployeeModel.find({
+    $or: [
+      { level: { $regex: req.query.search, $options: "i" } },
+      { position: { $regex: req.query.search, $options: "i" } }
+    ]
+  })
+  res.json(filter);
+
+  // levelFilter.length > positionFilter.length 
+  // ? res.json(levelFilter)
+  // : res.json(positionFilter) 
 })
 
 app.get("/api/employees/:id", (req, res) => {
