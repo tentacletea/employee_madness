@@ -16,6 +16,21 @@ const EmployeeList = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
 
+  const handleInput = (e) => {
+    // console.log(e.target.value);
+    setData(
+      data.filter((employee) =>
+        employee.position.toLowerCase().includes(e.target.value.toLowerCase()) 
+        || employee.level.toLowerCase().includes(e.target.value.toLowerCase())
+      ))
+
+    if (e.target.value.trim() === "") {
+      return fetch("/api/employees")
+        .then((res) => res.json())
+        .then((data) => setData(data))
+    }
+  }
+
   const handleDelete = (id) => {
     deleteEmployee(id).catch((err) => {
       console.log(err);
@@ -44,11 +59,13 @@ const EmployeeList = () => {
     return () => controller.abort();
   }, []);
 
+
+
   if (loading) {
     return <Loading />;
   }
 
-  return <EmployeeTable employees={data} onDelete={handleDelete} />;
+  return <EmployeeTable employees={data} onDelete={handleDelete} onInput={handleInput} />;
 };
 
 export default EmployeeList;

@@ -17,11 +17,12 @@ const Robert = () => {
   return (
     <div>
       <ol>
-        {employees.map((employee) => {
-          return (
-            <li key={employee._id}>{employee.name}</li>
-          )
-        })
+        {
+          employees.map((employee) => {
+            return (
+              <li key={employee._id}>{employee.name}</li>
+            )
+          })
         }
       </ol>
     </div>

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./EmployeeTable.css";
 
-const EmployeeTable = ({ employees, onDelete }) => (
+const EmployeeTable = ({ employees, onDelete, onInput }) => (
   <div className="EmployeeTable">
     <table>
       <thead>
@@ -10,7 +10,13 @@ const EmployeeTable = ({ employees, onDelete }) => (
           <th>Level</th>
           <th>Position</th>
           <th>         
-            <input placeholder="Position & Level"></input>
+            <input 
+              placeholder="Position & Level"
+              onChange={(e) => onInput(e)}
+            />
+
+          
+
           </th>
         </tr>
       </thead>
