@@ -33,24 +33,12 @@ app.use("/api/employees/:id", async (req, res, next) => {
 
 app.get("/api/robert", async (req, res) => {
   const allRoberts = await EmployeeModel.find({ name: /Robert/i })
-
-  // const name = "John";
-  // const allRoberts = await EmployeeModel.find( {name: new RegExp  (name, "i")} );
   res.send(allRoberts);
-
-  // const { resName } = req.query;
-  // const name = await EmployeeModel.find({$text: {$name: resName }})
-  // res.render("name", { name })
-
 })
 
 app.get("/api/employees/", async (req, res) => {
   let findQuery;
   let sortQuery;
-  const name = req.query.sort === "Name"
-  const position = req.query.sort === "Position"
-  const level = req.query.sort === "Level"
-
 
   if (req.query.search) {
     findQuery = {
@@ -62,35 +50,18 @@ app.get("/api/employees/", async (req, res) => {
   } else {
     findQuery = {}
   }
-  
+
   if (!req.query.sort) {
     sortQuery = {
       created: "desc"
     }
-  }
-  else if (name) {
-    sortQuery = {
-      name: 1
-    }
-  }
-  else if (position) {
-    sortQuery = {
-      level: 1
-    }
-  }
-  else if (level) {
-    sortQuery = {
-      position: 1
-    }
-  }
+  } else {
+    const key = req.query.sort.toLowerCase();
+    sortQuery = {};
+    sortQuery[key] = 1;
 
+  }
   const employees = await EmployeeModel.find(findQuery).sort(sortQuery);
-
-  // const compare = (a, b) =>{
-  //   a.name < b.name ? -1 : 1
-  //   a.name > b.name ? 1 : 1
-  // }
-
 
   return res.json(employees);
 });
