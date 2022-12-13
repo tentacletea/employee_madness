@@ -10,7 +10,7 @@ import EmployeeCreator from "./Pages/EmployeeCreator";
 import EmployeeUpdater from "./Pages/EmployeeUpdater";
 
 import "./index.css";
-import TableTest from "./Pages/TableTest";
+import EquipmentList from "./Pages/EquipmentList";
 import FormTest from "./Pages/FormTest";
 import Robert from "./Pages/Robert";
 
@@ -33,8 +33,8 @@ const router = createBrowserRouter([
         element: <EmployeeUpdater />,
       },
       {
-        path: "/table-test",
-        element: <TableTest />,
+        path: "/equipment-list",
+        element: <EquipmentList />,
       },
       {
         path: "/form-test",

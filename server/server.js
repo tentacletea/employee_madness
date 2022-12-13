@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const EmployeeModel = require("./db/employee.model");
+const EquipmentModel = require("./db/equipment.model")
 
 const { MONGO_URL, PORT = 8080 } = process.env;
 
@@ -30,6 +31,26 @@ app.use("/api/employees/:id", async (req, res, next) => {
   req.employee = employee;
   next();
 });
+
+
+app.get("/api/characters/", async (req, res) => {
+  const characters = await EquipmentModel.find().sort({
+    created: "desc"
+  })
+  return res.json(characters)
+})
+
+// app.post("/api/characters/", async (req, res, next) => {
+//   const character = req.body;
+
+//   try {
+//     const saved = await EquipmentModel.create(character);
+//     return res.json(saved);
+//   } catch (err) {
+//     return next(err);
+//   }
+// });
+
 
 app.get("/api/robert", async (req, res) => {
   const allRoberts = await EmployeeModel.find({ name: /Robert/i })
