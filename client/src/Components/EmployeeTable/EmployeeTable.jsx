@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./EmployeeTable.css";
 
-const EmployeeTable = ({ employees, onDelete, onInput }) => (
+const EmployeeTable = ({ employees, onDelete, onInput, onSelect }) => (
   <div className="EmployeeTable">
     <table>
       <thead>
@@ -9,14 +9,22 @@ const EmployeeTable = ({ employees, onDelete, onInput }) => (
           <th>Name</th>
           <th>Level</th>
           <th>Position</th>
-          <th>         
-            <input 
+          <th>
+            Filter: <input 
               placeholder="Position & Level"
               onChange={(e) => onInput(e)}
             />
-
-          
-
+          </th>
+          <th>
+            Sort by: <select
+            onChange={(e) => onSelect(e)}
+            >
+              <option>First name</option>
+              <option>Last name</option>
+              <option>Middle name</option>
+              <option>Position</option>
+              <option>Level</option>
+            </select>
           </th>
         </tr>
       </thead>
@@ -34,6 +42,7 @@ const EmployeeTable = ({ employees, onDelete, onInput }) => (
                 Delete
               </button>
             </td>
+            <td></td>
           </tr>
         ))}
       </tbody>

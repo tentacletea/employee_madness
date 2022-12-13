@@ -16,19 +16,30 @@ const EmployeeList = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
 
-  const handleInput = (e) => {
-    // console.log(e.target.value);
-    setData(
-      data.filter((employee) =>
-        employee.position.toLowerCase().includes(e.target.value.toLowerCase()) 
-        || employee.level.toLowerCase().includes(e.target.value.toLowerCase())
-      ))
-
+  const handleInput = async (e) => {
     if (e.target.value.trim() === "") {
       return fetch("/api/employees")
         .then((res) => res.json())
         .then((data) => setData(data))
     }
+
+    const paramObjects = {
+      search: e.target.value 
+    }
+
+    const searchParam = new URLSearchParams(paramObjects);
+
+    const data = await fetch(`/api/filter?${searchParam}`);
+    const res = await data.json()
+    setData(res)
+
+      // setData(
+      //   data.filter((employee) =>
+      //     employee.position.toLowerCase().includes(e.target.value.toLowerCase()) 
+      //     || employee.level.toLowerCase().includes(e.target.value.toLowerCase())
+      //   ))
+
+    
   }
 
   const handleDelete = (id) => {
@@ -48,6 +59,11 @@ const EmployeeList = () => {
       .then((employees) => {
         setLoading(false);
         setData(employees);
+        console.log(employees)
+        for (const user of employees) {
+          const lastname = user.name.split(" ")
+          console.log(lastname[lastname.length -1])
+        }
       })
       .catch((error) => {
         if (error.name !== "AbortError") {

@@ -40,7 +40,7 @@ app.get("/api/robert", async (req, res) => {
 
   // const { resName } = req.query;
   // const name = await EmployeeModel.find({$text: {$name: resName }})
-    // res.render("name", { name })
+  // res.render("name", { name })
 
 })
 
@@ -48,6 +48,15 @@ app.get("/api/employees/", async (req, res) => {
   const employees = await EmployeeModel.find().sort({ created: "desc" });
   return res.json(employees);
 });
+
+app.get("/api/filter/", async (req, res) => {
+  const levelFilter = await EmployeeModel.find( { level: {$regex : req.query.search , $options: "i"} } )
+  const positionFilter = await EmployeeModel.find( { position: {$regex : req.query.search , $options: "i"} } )
+
+  levelFilter.length > positionFilter.length 
+  ? res.json(levelFilter)
+  : res.json(positionFilter) 
+})
 
 app.get("/api/employees/:id", (req, res) => {
   return res.json(req.employee);
