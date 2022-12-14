@@ -59,6 +59,7 @@ app.get("/api/robert", async (req, res) => {
 
 app.get("/api/employees/", async (req, res) => {
   let findQuery;
+  let sortQuery;
 
   if (req.query.search) {
     findQuery = {
@@ -77,7 +78,7 @@ app.get("/api/employees/", async (req, res) => {
     }
   } else {
     const key = req.query.sort.toLowerCase();
-    let sortQuery = {};
+    sortQuery = {};
     sortQuery[key] = 1;
 
   }

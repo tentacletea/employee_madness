@@ -18,8 +18,9 @@ const EmployeeTable = ({ employees, onDelete, onInput, onSelect }) => (
           <th>
             Sort by: <select
             onChange={(e) => onSelect(e)}
+            defaultValue={"none"}
             >
-              <option value="" disabled selected>Select your option</option>
+              <option value="none" disabled>Select your option</option>
               <option value="name">Name</option>
               <option value="position">Position</option>
               <option value="level">Level</option>
