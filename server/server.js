@@ -58,8 +58,8 @@ app.get("/api/robert", async (req, res) => {
 })
 
 app.get("/api/employees/", async (req, res) => {
-  let findQuery;
-  let sortQuery;
+  let findQuery = {};
+  let sortQuery = {};
 
   if (req.query.search) {
     findQuery = {
@@ -68,9 +68,7 @@ app.get("/api/employees/", async (req, res) => {
         { position: { $regex: req.query.search, $options: "i" } },
       ]
     }
-  } else {
-    findQuery = {}
-  }
+  } 
 
   if (!req.query.sort) {
     sortQuery = {
@@ -78,10 +76,9 @@ app.get("/api/employees/", async (req, res) => {
     }
   } else {
     const key = req.query.sort.toLowerCase();
-    sortQuery = {};
     sortQuery[key] = 1;
-
   }
+
   const employees = await EmployeeModel.find(findQuery).sort(sortQuery);
 
   return res.json(employees);
@@ -93,7 +90,6 @@ app.get("/api/filter/", async (req, res) => {
   // levelFilter.length > positionFilter.length 
   // ? res.json(levelFilter)
   // : res.json(positionFilter) 
-
 
   const filter = await EmployeeModel.find({
     $or: [
