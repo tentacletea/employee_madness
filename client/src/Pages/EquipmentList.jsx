@@ -3,11 +3,11 @@ import Loading from "../Components/Loading";
 import EquipmentTable from "../Components/EquipmentTable/index";
 
 const fetchCharacters = (signal) => {
-  return fetch("/api/characters", { signal }).then((res) => res.json());
+  return fetch("/api/equipments", { signal }).then((res) => res.json());
 };
 
 const deleteCharacter = (id) => {
-  return fetch(`/api/characters/${id}`, { method: "DELETE" }).then((res) =>
+  return fetch(`/api/equipments/${id}`, { method: "DELETE" }).then((res) =>
     res.json()
   );
 };
@@ -21,8 +21,8 @@ const EquipmentList = () => {
       console.log(err);
     });
 
-    setData((characters) => {
-      return characters.filter((character) => character._id !== id);
+    setData((equipments) => {
+      return equipments.filter((equipment) => equipment._id !== id);
     });
   };
 
@@ -30,10 +30,10 @@ const EquipmentList = () => {
     const controller = new AbortController();
 
     fetchCharacters(controller.signal)
-      .then((characters) => {
+      .then((equipments) => {
         setLoading(false);
-        setData(characters);
-        console.log(characters)
+        setData(equipments);
+        console.log(equipments)
       })
       .catch((error) => {
         if (error.name !== "AbortError") {
@@ -51,7 +51,7 @@ const EquipmentList = () => {
     return <Loading />;
   }
 
-  return <EquipmentTable characters={data} onDelete={handleDelete} />;
+  return <EquipmentTable equipments={data} onDelete={handleDelete} />;
 };
 
 export default EquipmentList;

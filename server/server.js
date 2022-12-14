@@ -33,7 +33,7 @@ app.use("/api/employees/:id", async (req, res, next) => {
 });
 
 
-app.get("/api/characters/", async (req, res) => {
+app.get("/api/equipments/", async (req, res) => {
   const characters = await EquipmentModel.find().sort({
     created: "desc"
   })
@@ -59,7 +59,6 @@ app.get("/api/robert", async (req, res) => {
 
 app.get("/api/employees/", async (req, res) => {
   let findQuery;
-  let sortQuery;
 
   if (req.query.search) {
     findQuery = {
@@ -78,7 +77,7 @@ app.get("/api/employees/", async (req, res) => {
     }
   } else {
     const key = req.query.sort.toLowerCase();
-    sortQuery = {};
+    let sortQuery = {};
     sortQuery[key] = 1;
 
   }
@@ -90,6 +89,10 @@ app.get("/api/employees/", async (req, res) => {
 app.get("/api/filter/", async (req, res) => {
   // const levelFilter = await EmployeeModel.find( { level: {$regex : req.query.search , $options: "i"} } )
   // const positionFilter = await EmployeeModel.find( { position: {$regex : req.query.search , $options: "i"} } )
+  // levelFilter.length > positionFilter.length 
+  // ? res.json(levelFilter)
+  // : res.json(positionFilter) 
+
 
   const filter = await EmployeeModel.find({
     $or: [
@@ -98,10 +101,6 @@ app.get("/api/filter/", async (req, res) => {
     ]
   })
   res.json(filter);
-
-  // levelFilter.length > positionFilter.length 
-  // ? res.json(levelFilter)
-  // : res.json(positionFilter) 
 })
 
 app.get("/api/employees/:id", (req, res) => {

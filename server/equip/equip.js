@@ -3,8 +3,7 @@ Loading the .env file and creates environment variables from it
 */
 require("dotenv").config();
 const mongoose = require("mongoose");
-const names = require("./names.json");
-const types = require("./types.json");
+const equipments = require("./equipments.json");
 const amounts = require("./amounts.json");
 const EquipmentModel = require("../db/equipment.model");
 
@@ -17,23 +16,23 @@ if (!mongoUrl) {
 
 const pick = (from) => from[Math.floor(Math.random() * (from.length - 0))];
 
-const populateEmployees = async () => {
+const populateEquipments = async () => {
   await EquipmentModel.deleteMany({});
 
-  const characters = names.map((name) => ({
-    name,
-    type: pick(types),
+  const equipmentsMap = equipments.map((equipment) => ({
+    name: equipment.name,
+    type: equipment.type,
     amount: pick(amounts),
   }));
 
-  await EquipmentModel.create(...characters);
+  await EquipmentModel.create(...equipmentsMap);
   console.log("Characters created");
 };
 
 const main = async () => {
   await mongoose.connect(mongoUrl);
 
-  await populateEmployees();
+  await populateEquipments();
 
   await mongoose.disconnect();
 };

@@ -3,7 +3,7 @@ import "./EquipmentTable.css";
 
 
 
-const EquipmentTable = ({ characters, onDelete }) => (
+const EquipmentTable = ({ equipments, onDelete }) => (
   <table className="EquipmentTable">
     <thead>
       <tr>
@@ -14,16 +14,16 @@ const EquipmentTable = ({ characters, onDelete }) => (
     </thead>
     <tbody>
       {
-        characters.map((character) => (
-          <tr key={character._id}>
-            <td>{character.name}</td>
-            <td>{character.type}</td>
-            <td>{character.amount}</td>
+        equipments.map((equipment) => (
+          <tr key={equipment._id}>
+            <td>{equipment.name}</td>
+            <td>{equipment.type}</td>
+            <td>{equipment.amount}</td>
             <td>
-              <Link to={`/update/${character._id}`}>
+              <Link to={`/update/${equipment._id}`}>
                 <button type="button">Update</button>
               </Link>
-              <button type="button" onClick={() => onDelete(character._id)}>
+              <button type="button" onClick={() => onDelete(equipment._id)}>
                 Delete
               </button>
             </td>

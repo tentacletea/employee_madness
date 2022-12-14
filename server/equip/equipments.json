@@ -1,0 +1,26 @@
+[
+    {
+        "name": "mouse",
+        "type": "hardware"
+    },
+    {
+        "name": "ring",
+        "type": "asccessories" 
+    },
+    {
+        "name": "beanie",
+        "type": "hat"
+    },
+    {
+        "name": "beret",
+        "type": "hat"
+    },
+    {
+        "name": "necklace",
+        "type": "asccessories"
+    },
+    {
+        "name": "keyboard",
+        "type": "hardware"
+    }
+]
