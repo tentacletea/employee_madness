@@ -18,13 +18,13 @@ const EmployeeList = () => {
 
   const handleInput = async (e) => {
     if (e.target.value.trim() === "") {
-      const data = await fetch ("/api/employees");
+      const data = await fetch("/api/employees");
       const res = await data.json();
       setData(res);
     }
 
     const paramObjects = {
-      search: e.target.value 
+      search: e.target.value
     }
     const searchParam = new URLSearchParams(paramObjects);
 
@@ -43,8 +43,6 @@ const EmployeeList = () => {
     setData(res)
   }
 
-
-
   const handleDelete = (id) => {
     deleteEmployee(id).catch((err) => {
       console.log(err);
@@ -55,6 +53,38 @@ const EmployeeList = () => {
     });
   };
 
+  const handleCheck = async (id, presence) => {
+    let presenceBoolean = !presence;
+
+    const updatePresence = {
+      present: presenceBoolean
+    }
+
+    // return fetch(`/api/employees/${id}`, {
+    //   method: "PATCH",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(updatePresence),
+    // }).then((res) => res.json());
+
+    const res = await fetch(`/api/employees/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatePresence),
+    })
+
+    setData(data.map(employee => {
+      if (employee._id === id) {
+        return { ...employee, ...updatePresence }
+      } else {
+        return employee
+      }
+    }))
+  }
+
   useEffect(() => {
     const controller = new AbortController();
 
@@ -63,10 +93,6 @@ const EmployeeList = () => {
         setLoading(false);
         setData(employees);
         console.log(employees)
-        // for (const user of employees) {
-        //   const lastname = user.name.split(" ")
-        //   console.log(lastname[lastname.length -1])
-        // }
       })
       .catch((error) => {
         if (error.name !== "AbortError") {
@@ -84,7 +110,7 @@ const EmployeeList = () => {
     return <Loading />;
   }
 
-  return <EmployeeTable employees={data} onDelete={handleDelete} onInput={handleInput} onSelect={handleSort}/>;
+  return <EmployeeTable employees={data} onDelete={handleDelete} onInput={handleInput} onSelect={handleSort} onCheck={handleCheck} />;
 };
 
 export default EmployeeList;

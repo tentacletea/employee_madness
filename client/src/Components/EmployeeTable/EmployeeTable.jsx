@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./EmployeeTable.css";
 
-const EmployeeTable = ({ employees, onDelete, onInput, onSelect }) => (
+const EmployeeTable = ({ employees, onDelete, onInput, onSelect, onCheck, checkedState }) => (
   <div className="EmployeeTable">
     <table>
       <thead>
@@ -10,15 +10,15 @@ const EmployeeTable = ({ employees, onDelete, onInput, onSelect }) => (
           <th>Level</th>
           <th>Position</th>
           <th>
-            Filter: <input 
+            Filter: <input
               placeholder="Position & Level"
               onChange={(e) => onInput(e)}
             />
           </th>
           <th>
             Sort by: <select
-            onChange={(e) => onSelect(e)}
-            defaultValue={"none"}
+              onChange={(e) => onSelect(e)}
+              defaultValue={"none"}
             >
               <option value="none" disabled>Select your option</option>
               <option value="name">Name</option>
@@ -29,7 +29,7 @@ const EmployeeTable = ({ employees, onDelete, onInput, onSelect }) => (
         </tr>
       </thead>
       <tbody>
-        {employees.map((employee) => (
+        {employees.map((employee, index) => (
           <tr key={employee._id}>
             <td>{employee.name}</td>
             <td>{employee.level}</td>
@@ -42,7 +42,9 @@ const EmployeeTable = ({ employees, onDelete, onInput, onSelect }) => (
                 Delete
               </button>
             </td>
-            <td></td>
+            <td>
+              Present <input type="checkbox" onChange={() => onCheck(employee._id, employee.present)} checked={employee.present}></input>
+            </td>
           </tr>
         ))}
       </tbody>
