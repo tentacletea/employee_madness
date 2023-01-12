@@ -9,7 +9,7 @@ employeeRouter.get("/", async (req, res) => {
     if (req.query.search) {
         findQuery = {
             $or: [
-                { level: { $regex: req.query.search, $options: "i" } },
+                { level: req.query.search },
                 { position: { $regex: req.query.search, $options: "i" } },
             ]
         }

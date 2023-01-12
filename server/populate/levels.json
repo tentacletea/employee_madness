@@ -1,1 +1,1 @@
-["Junior", "Medior", "Senior", "Expert", "Godlike"]
+{ "Junior": 1, "Medior": 2, "Senior": 3, "Expert": 4, "Godlike": 5 }

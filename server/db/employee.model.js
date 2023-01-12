@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 
 const EmployeeSchema = new Schema({
   name: String,
-  level: String,
+  level: Number,
   position: String,
   created: {
     type: Date,
