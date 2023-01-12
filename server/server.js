@@ -1,10 +1,9 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-const EquipmentModel = require("./db/equipment.model")
-
+const EmployeeModel = require("./db/employee.model");
 const employeeRouter = require("./routes/employees.router");
-
+const equipmentsRouter = require("./routes/equipments.router")
 
 const { MONGO_URL, PORT = 8080 } = process.env;
 
@@ -14,33 +13,14 @@ if (!MONGO_URL) {
 }
 
 const app = express();
-
 app.use(express.json());
 
 app.use("/api/employees", employeeRouter)
-
-
-app.get("/api/equipments/", async (req, res) => {
-  const characters = await EquipmentModel.find().sort({
-    created: "desc"
-  })
-  return res.json(characters)
-})
+app.use("/api/equipments", equipmentsRouter)
 
 app.get("/api/robert", async (req, res) => {
   const allRoberts = await EmployeeModel.find({ name: /Robert/i })
   res.send(allRoberts);
-})
-
-
-app.get("/api/filter/", async (req, res) => {
-  const filter = await EmployeeModel.find({
-    $or: [
-      { level: { $regex: req.query.search, $options: "i" } },
-      { position: { $regex: req.query.search, $options: "i" } }
-    ]
-  })
-  res.json(filter);
 })
 
 const main = async () => {

@@ -1,6 +1,5 @@
 const express = require("express");
 const EmployeeModel = require("../db/employee.model");
-
 const employeeRouter = express.Router();
 
 employeeRouter.get("/", async (req, res) => {
@@ -16,6 +15,11 @@ employeeRouter.get("/", async (req, res) => {
         }
     }
 
+    // if (req.query.search) {
+    //     findQuery = { level: { $regex: req.query.search, $options: "i"} }
+    // }
+
+
     if (!req.query.sort) {
         sortQuery = {
             created: "desc"
@@ -29,6 +33,11 @@ employeeRouter.get("/", async (req, res) => {
 
     return res.json(employees);
 });
+
+employeeRouter.get("/missing", async (req, res) => {
+    const missingEmployees = await EmployeeModel.find( { present: false })
+    return res.json(missingEmployees)
+})
 
 employeeRouter.use("/:id", async (req, res, next) => {
     let employee = null;

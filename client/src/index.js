@@ -13,6 +13,7 @@ import "./index.css";
 import EquipmentList from "./Pages/EquipmentList";
 import FormTest from "./Pages/FormTest";
 import Robert from "./Pages/Robert";
+import Missing from "./Pages/Missing"
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "/robert",
         element: <Robert />,
+      },
+      {
+        path: "/missing",
+        element: <Missing />
       }
     ],
   },
