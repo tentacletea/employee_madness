@@ -15,11 +15,6 @@ employeeRouter.get("/", async (req, res) => {
         }
     }
 
-    // if (req.query.search) {
-    //     findQuery = { level: { $regex: req.query.search, $options: "i"} }
-    // }
-
-
     if (!req.query.sort) {
         sortQuery = {
             created: "desc"
