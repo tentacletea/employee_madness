@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./EmployeeTable.css";
 
-const EmployeeTable = ({ employees, onDelete, onInput, onSelect, onCheck, checkedState }) => (
+const EmployeeTable = ({ employees, onDelete, onInput, onSelect, onCheck}) => (
   <div className="EmployeeTable">
     <table>
       <thead>

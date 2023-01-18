@@ -8,6 +8,8 @@ import ErrorPage from "./Pages/ErrorPage";
 import EmployeeList from "./Pages/EmployeeList";
 import EmployeeCreator from "./Pages/EmployeeCreator";
 import EmployeeUpdater from "./Pages/EmployeeUpdater";
+import CompanyCreator from "./Pages/CompanyCreator";
+
 
 import "./index.css";
 import EquipmentList from "./Pages/EquipmentList";
@@ -24,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <EmployeeList />,
+      },
+      {
+        path: "create-company",
+        element: <CompanyCreator />,
       },
       {
         path: "/create",
