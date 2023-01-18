@@ -3,7 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const EmployeeModel = require("./db/employee.model");
 const employeeRouter = require("./routes/employees.router");
-const equipmentsRouter = require("./routes/equipments.router")
+const equipmentsRouter = require("./routes/equipments.router");
+const companyRouter = require("./routes/companies.router");
 
 const { MONGO_URL, PORT = 8080 } = process.env;
 
@@ -15,8 +16,9 @@ if (!MONGO_URL) {
 const app = express();
 app.use(express.json());
 
-app.use("/api/employees", employeeRouter)
-app.use("/api/equipments", equipmentsRouter)
+app.use("/api/employees", employeeRouter);
+app.use("/api/equipments", equipmentsRouter);
+app.use("/api/companies", companyRouter);
 
 app.get("/api/robert", async (req, res) => {
   const allRoberts = await EmployeeModel.find({ name: /Robert/i })

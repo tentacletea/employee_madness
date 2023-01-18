@@ -1,0 +1,17 @@
+[
+    {
+        "name" : "Microsoft",
+        "city" : "New York",
+        "country" : "USA"
+    },
+    {
+        "name" : "Bank Austria",
+        "city" : "Vienna",
+        "country" : "Austria"
+    },
+    {
+        "name" : "BMW",
+        "city" : "Berlin",
+        "country" : "Germany"
+    }
+]

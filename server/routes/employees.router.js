@@ -21,7 +21,11 @@ employeeRouter.get("/", async (req, res) => {
         }
     } else {
         const key = req.query.sort.toLowerCase();
-        sortQuery[key] = 1;
+        // sortQuery[key] = 1;
+        sortQuery = {
+            [key] : 1
+        }
+        console.log(sortQuery)
     }
 
     const employees = await EmployeeModel.find(findQuery).sort(sortQuery);
