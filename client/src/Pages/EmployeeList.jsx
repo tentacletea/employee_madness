@@ -88,7 +88,7 @@ const EmployeeList = () => {
       .then((employees) => {
         setLoading(false);
         setData(employees);
-        console.log(employees);
+        // console.log(employees);
       })
       .catch((error) => {
         if (error.name !== "AbortError") {
